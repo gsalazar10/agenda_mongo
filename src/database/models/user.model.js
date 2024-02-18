@@ -12,14 +12,11 @@ const userSchema = new Schema({
         type: String
     },
     status: {
-        type: String
+        type: Boolean
     },
     areaId: {
         type: String
     },
-});
+})
 
-// Convertir a modelo
-const User = mongoose.model('user', userSchema);
-
-module.exports = User
+module.exports = mongoose.model('user', userSchema)

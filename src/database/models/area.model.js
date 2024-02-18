@@ -14,9 +14,6 @@ const areaSchema = new Schema({
     status: {
         type: String
     }
-});
+})
 
-// Convertir a modelo
-const Area = mongoose.model('area', areaSchema);
-
-module.exports = Area
+module.exports = mongoose.model('area', areaSchema)

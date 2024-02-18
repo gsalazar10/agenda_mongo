@@ -6,6 +6,8 @@ const morgan = require('morgan')
 //Declare variable enviroment
 const { port, dbHost, dbPort, dbUser, dbPassword, dbName } = require("./config/config")
 
+mongoose.Promise = global.Promise
+
 //Conexión BD
 mongoose.connect(`mongodb://${dbHost}:${dbPort}/${dbName}`).then(() => {
     console.log('Mongo is connected')
@@ -14,8 +16,16 @@ mongoose.connect(`mongodb://${dbHost}:${dbPort}/${dbName}`).then(() => {
     app.use(express.json())
     app.use(morgan("dev"))
 
-    app.listen(port,()=>{
+    app.listen(port, () => {
         console.log(`App listening on port: ${port}`)
     })
 
 }).catch(error => console.error(`Database connection error: ${error.message}`))
+
+mongoose.connection.on('error', function (err) {
+    console.log(`Mongoose Error: ${err}`)
+})
+
+mongoose.connection.on('disconnected', function () {
+    console.log('Mongoose default connection is disconnected')
+})
